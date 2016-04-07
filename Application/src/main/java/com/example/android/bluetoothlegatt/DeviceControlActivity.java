@@ -17,6 +17,7 @@
 package com.example.android.bluetoothlegatt;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -27,6 +28,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -109,6 +111,9 @@ public class DeviceControlActivity extends Activity {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+            } else if (BluetoothLeService.ACTION_DOUBLE_TAP.equals(action)){
+                Log.d(TAG, "JACK!!!!!!");
+                wakeDevice();
             }
         }
     };
@@ -172,6 +177,8 @@ public class DeviceControlActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
+        createWakeLocks();
     }
 
     @Override
@@ -182,12 +189,37 @@ public class DeviceControlActivity extends Activity {
             final boolean result = mBluetoothLeService.connect(mDeviceAddress);
             Log.d(TAG, "Connect request result=" + result);
         }
+
+        if(fullWakeLock.isHeld()){
+            fullWakeLock.release();
+        }
+        if (partialWakeLock.isHeld()){
+            partialWakeLock.release();
+        }
+    }
+
+    public void wakeDevice() {
+        fullWakeLock.acquire();
+
+        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("TAG");
+        keyguardLock.disableKeyguard();
+    }
+
+    PowerManager.WakeLock fullWakeLock;
+    PowerManager.WakeLock partialWakeLock;
+
+    protected void createWakeLocks(){
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        fullWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Loneworker - FULL WAKE LOCK");
+        partialWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Loneworker - PARTIAL WAKE LOCK");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mGattUpdateReceiver);
+        partialWakeLock.acquire();
     }
 
     @Override
@@ -304,6 +336,7 @@ public class DeviceControlActivity extends Activity {
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_DISCONNECTED);
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED);
         intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
+        intentFilter.addAction(BluetoothLeService.ACTION_DOUBLE_TAP);
         return intentFilter;
     }
 }

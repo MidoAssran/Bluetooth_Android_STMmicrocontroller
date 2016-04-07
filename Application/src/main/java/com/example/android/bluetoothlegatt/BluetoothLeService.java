@@ -31,7 +31,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-
+import com.example.android.bluetoothlegatt.DeviceControlActivity;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,7 +62,8 @@ public class BluetoothLeService extends Service {
             "com.example.bluetooth.le.ACTION_DATA_AVAILABLE";
     public final static String EXTRA_DATA =
             "com.example.bluetooth.le.EXTRA_DATA";
-
+    public final static String ACTION_DOUBLE_TAP =
+            "com.example.bluetooth.le.ACTION_DOUBLE_TAP";
     public final static UUID UUID_FREE_FALL_CHARACTERISTIC =
             UUID.fromString(SampleGattAttributes.FREE_FALL_CHARACTERISTIC);
     public final static UUID UUID_ACC_VAL_CHARACTERISTIC =
@@ -123,27 +124,25 @@ public class BluetoothLeService extends Service {
 
     private void broadcastUpdate(final String action,
                                  final BluetoothGattCharacteristic characteristic) {
-        final Intent intent = new Intent(action);
+        Intent intent = new Intent(action);
 
-        // This is special handling for the Heart Rate Measurement profile.  Data parsing is
-        // carried out as per profile specifications:
-        // http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
         if (UUID_FREE_FALL_CHARACTERISTIC.equals(characteristic.getUuid())){
             temp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
-            Log.d(TAG,"MIDO UPDATE)");
+            Log.d(TAG, "MIDO UPDATE)");
+            intent = new Intent(ACTION_DOUBLE_TAP);
         } else if (UUID_ACC_VAL_CHARACTERISTIC.equals(characteristic.getUuid())) {
-            int flag = characteristic.getProperties();
-            int format = -1;
-            if ((flag & 0x01) != 0) {
-                format = BluetoothGattCharacteristic.FORMAT_UINT16;
-                Log.d(TAG, "Acc format UINT16.");
-            } else {
-                format = BluetoothGattCharacteristic.FORMAT_UINT8;
-                Log.d(TAG, "Acc format UINT8.");
-            }
-            final int acc = characteristic.getIntValue(format, 1);
-            Log.d(TAG, String.format("Received acc: %d", acc));
-            intent.putExtra(EXTRA_DATA, String.valueOf(acc));
+            final int bitch = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+            final String sBitch  = Integer.toString(bitch);
+
+            final int roll = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 2);
+            final String sRoll  = Integer.toString(roll);
+
+            final int z = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 4);
+            final String sz  = Integer.toString(roll);
+
+            final String s = "Bitch:  " + sBitch + "Roll:  " + sRoll;
+            Log.d(TAG, String.format("Received acc: %s", s));
+            intent.putExtra(EXTRA_DATA, s);
         } else {
             // For all other profiles, writes the data formatted in HEX.
             final byte[] data = characteristic.getValue();
