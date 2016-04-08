@@ -15,7 +15,7 @@
  */
 
 package com.example.android.bluetoothlegatt;
-
+import com.example.android.bluetoothlegatt.BluetoothLeService;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothGattCharacteristic;
@@ -113,7 +113,6 @@ public class DeviceControlActivity extends Activity {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
             } else if (BluetoothLeService.ACTION_DOUBLE_TAP.equals(action)){
                 Log.d(TAG, "JACK!!!!!!");
-                wakeDevice();
             }
         }
     };
@@ -178,7 +177,6 @@ public class DeviceControlActivity extends Activity {
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
-        createWakeLocks();
     }
 
     @Override
@@ -190,36 +188,15 @@ public class DeviceControlActivity extends Activity {
             Log.d(TAG, "Connect request result=" + result);
         }
 
-        if(fullWakeLock.isHeld()){
-            fullWakeLock.release();
-        }
-        if (partialWakeLock.isHeld()){
-            partialWakeLock.release();
-        }
-    }
-
-    public void wakeDevice() {
-        fullWakeLock.acquire();
-
-        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
         KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("TAG");
         keyguardLock.disableKeyguard();
-    }
-
-    PowerManager.WakeLock fullWakeLock;
-    PowerManager.WakeLock partialWakeLock;
-
-    protected void createWakeLocks(){
-        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        fullWakeLock = powerManager.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "Loneworker - FULL WAKE LOCK");
-        partialWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Loneworker - PARTIAL WAKE LOCK");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mGattUpdateReceiver);
-        partialWakeLock.acquire();
     }
 
     @Override

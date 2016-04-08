@@ -16,6 +16,7 @@
 
 package com.example.android.bluetoothlegatt;
 
+import android.app.KeyguardManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -30,11 +31,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
+import android.os.Handler;
 import com.example.android.bluetoothlegatt.DeviceControlActivity;
 import java.util.List;
 import java.util.UUID;
-
+import com.example.android.bluetoothlegatt.DeviceControlActivity;
 /**
  * Service for managing connection and data communication with a GATT server hosted on a
  * given Bluetooth LE device.
@@ -122,14 +125,27 @@ public class BluetoothLeService extends Service {
         sendBroadcast(intent);
     }
 
+
+    public void wakeDevice() {
+
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = pm.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "TAG");
+        wakeLock.acquire();
+
+        Log.d(TAG, "JACK!!!! WAKE UP!!!");
+
+    }
+
+
     private void broadcastUpdate(final String action,
                                  final BluetoothGattCharacteristic characteristic) {
         Intent intent = new Intent(action);
 
         if (UUID_FREE_FALL_CHARACTERISTIC.equals(characteristic.getUuid())){
             temp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
-            Log.d(TAG, "MIDO UPDATE)");
             intent = new Intent(ACTION_DOUBLE_TAP);
+            wakeDevice();
+
         } else if (UUID_ACC_VAL_CHARACTERISTIC.equals(characteristic.getUuid())) {
             final int bitch = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
             final String sBitch  = Integer.toString(bitch);
