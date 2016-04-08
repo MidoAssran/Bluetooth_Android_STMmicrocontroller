@@ -67,10 +67,12 @@ public class BluetoothLeService extends Service {
             "com.example.bluetooth.le.EXTRA_DATA";
     public final static String ACTION_DOUBLE_TAP =
             "com.example.bluetooth.le.ACTION_DOUBLE_TAP";
-    public final static UUID UUID_FREE_FALL_CHARACTERISTIC =
-            UUID.fromString(SampleGattAttributes.FREE_FALL_CHARACTERISTIC);
+    public final static UUID UUID_DOUBLE_TAP_CHARACTERISTIC =
+            UUID.fromString(SampleGattAttributes.DOUBLE_TAP_CHARACTERISTIC);
     public final static UUID UUID_ACC_VAL_CHARACTERISTIC =
             UUID.fromString(SampleGattAttributes.ACC_VAL_CHARACTERISTIC);
+    public final static UUID UUID_TEMP_VAL_CHARACTERISTIC=
+            UUID.fromString(SampleGattAttributes.TEMP_VAL_CHARACTERISTIC);
 
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
@@ -134,21 +136,27 @@ public class BluetoothLeService extends Service {
 
         Log.d(TAG, "JACK!!!! WAKE UP!!!");
 
-    }
 
+        KeyguardManager keyguardManager = (KeyguardManager) getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("TAG");
+        keyguardLock.disableKeyguard();
+    }
 
     private void broadcastUpdate(final String action,
                                  final BluetoothGattCharacteristic characteristic) {
-        Intent intent = new Intent(action);
+        final Intent intent = new Intent(action);
 
-        if (UUID_FREE_FALL_CHARACTERISTIC.equals(characteristic.getUuid())){
-            temp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
-            intent = new Intent(ACTION_DOUBLE_TAP);
+        if (UUID_DOUBLE_TAP_CHARACTERISTIC.equals(characteristic.getUuid())){
+//            temp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+//            intent = new Intent(ACTION_DOUBLE_TAP);
             wakeDevice();
+            final String s = (temp==1) ? "Enabled" : "Disabled";
+            Log.d(TAG, String.format("Received Interrupt: %s", s));
+            intent.putExtra(EXTRA_DATA, s);
 
         } else if (UUID_ACC_VAL_CHARACTERISTIC.equals(characteristic.getUuid())) {
-            final int bitch = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
-            final String sBitch  = Integer.toString(bitch);
+            final int pitch = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+            final String sPitch  = Integer.toString(pitch);
 
             final int roll = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 2);
             final String sRoll  = Integer.toString(roll);
@@ -156,7 +164,7 @@ public class BluetoothLeService extends Service {
             final int z = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 4);
             final String sz  = Integer.toString(roll);
 
-            final String s = "Bitch:  " + sBitch + "Roll:  " + sRoll;
+            final String s = "Pitch:  " + sPitch + " Roll:  " + sRoll;
             Log.d(TAG, String.format("Received acc: %s", s));
             intent.putExtra(EXTRA_DATA, s);
         } else {
@@ -301,7 +309,8 @@ public class BluetoothLeService extends Service {
         }
         mBluetoothGatt.readCharacteristic(characteristic);
     }
-
+    private boolean isFirstTry = true;
+    private int count = 0;
     /**
      * Enables or disables notification on a give characteristic.
      *
@@ -316,19 +325,34 @@ public class BluetoothLeService extends Service {
         }
 
         mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
-
-        if (UUID_FREE_FALL_CHARACTERISTIC.equals(characteristic.getUuid())) {
-            if (temp == 0){
-                BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
-                        UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
-                descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-                mBluetoothGatt.writeDescriptor(descriptor);
+        if (UUID_DOUBLE_TAP_CHARACTERISTIC.equals(characteristic.getUuid())) {
+            final Intent intent = new Intent(ACTION_DATA_AVAILABLE);
+            if (isFirstTry) {
+                count = 2;
+                isFirstTry = false;
             } else {
-                BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
-                        UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
-                descriptor.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
-                mBluetoothGatt.writeDescriptor(descriptor);
+                count++;
             }
+            if (count == 2){
+                if (temp == 0){
+                    BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
+                            UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+                    descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                    mBluetoothGatt.writeDescriptor(descriptor);
+                } else if (temp==1) {
+                    BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
+                            UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+                    descriptor.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
+                    mBluetoothGatt.writeDescriptor(descriptor);
+                }
+                temp = (temp==0) ? 1 : 0;
+                count = 0;
+            }
+            final String s = (temp==1) ? "Enabled" : "Disabled";
+            Log.d(TAG, s);
+            intent.putExtra(EXTRA_DATA, s);
+            sendBroadcast(intent);
+
         }
     }
 
