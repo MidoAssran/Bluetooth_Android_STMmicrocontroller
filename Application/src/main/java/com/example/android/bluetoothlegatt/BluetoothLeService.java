@@ -150,7 +150,7 @@ public class BluetoothLeService extends Service {
 //            temp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
 //            intent = new Intent(ACTION_DOUBLE_TAP);
             wakeDevice();
-            final String s = (temp==1) ? "Enabled" : "Disabled";
+            final String s = (temp==1) ? " Double Tap: Enabled" : " Double Tap: Disabled";
             Log.d(TAG, String.format("Received Interrupt: %s", s));
             intent.putExtra(EXTRA_DATA, s);
 
@@ -166,6 +166,13 @@ public class BluetoothLeService extends Service {
 
             final String s = "Pitch:  " + sPitch + " Roll:  " + sRoll;
             Log.d(TAG, String.format("Received acc: %s", s));
+            intent.putExtra(EXTRA_DATA, s);
+        } else if (UUID_TEMP_VAL_CHARACTERISTIC.equals(characteristic.getUuid())) {
+            final int temp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+            final String sTemp = Integer.toString(temp);
+
+            final String s = " Temperature: " + sTemp + "° Celsius";
+            Log.d(TAG, String.format("Received temperature: %s", s));
             intent.putExtra(EXTRA_DATA, s);
         } else {
             // For all other profiles, writes the data formatted in HEX.
