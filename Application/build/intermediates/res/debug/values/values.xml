@@ -42,9 +42,12 @@
     </string>
     <!-- From: file:/Users/midoassran/Desktop/code/BluetoothLeGatt/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="label_PWM">LED Brightness:</string>
     <string name="label_data">Data:</string>
     <string name="label_device_address">Device address:</string>
+    <string name="label_speed">LED Rotation Speed:</string>
     <string name="label_state">State:</string>
+    <string name="label_toggle">Toggle LED:</string>
     <string name="menu_connect">Connect</string>
     <string name="menu_disconnect">Disconnect</string>
     <string name="menu_scan">Scan</string>

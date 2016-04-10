@@ -115,6 +115,16 @@ public class BluetoothLeService extends Service {
             }
         }
 
+
+        @Override
+        public void onCharacteristicWrite(BluetoothGatt gatt,
+                                          BluetoothGattCharacteristic characteristic,
+                                          int status) {
+            Log.d(TAG, "------------- onCharacteristicWrite status: " + status);
+
+            // do somethings here.
+        }
+
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
@@ -155,13 +165,13 @@ public class BluetoothLeService extends Service {
             intent.putExtra(EXTRA_DATA, s);
 
         } else if (UUID_ACC_VAL_CHARACTERISTIC.equals(characteristic.getUuid())) {
-            final int pitch = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+            final int pitch = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 0);
             final String sPitch  = Integer.toString(pitch);
 
-            final int roll = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 2);
+            final int roll = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 2);
             final String sRoll  = Integer.toString(roll);
 
-            final int z = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 4);
+            final int z = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 4);
             final String sz  = Integer.toString(roll);
 
             final String s = "Pitch:  " + sPitch + " Roll:  " + sRoll;
@@ -316,6 +326,21 @@ public class BluetoothLeService extends Service {
         }
         mBluetoothGatt.readCharacteristic(characteristic);
     }
+
+    /**
+     * Requst a write on a give {@code BluetoothGattCharacteristic}. The write result is reported
+     * asynchronously through the {@code BluetoothGattCallback#onCharacteristicWrite(andorid.bluetooth.BluetoothGatt, android.bluetooth.BluetoothGattCharacteristic, int)}
+     * callback.
+     */
+    public void writeCharacteristic(BluetoothGattCharacteristic characteristic) {
+        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
+        mBluetoothGatt.writeCharacteristic(characteristic);
+    }
+
+
     private boolean isFirstTry = true;
     private int count = 0;
     /**
