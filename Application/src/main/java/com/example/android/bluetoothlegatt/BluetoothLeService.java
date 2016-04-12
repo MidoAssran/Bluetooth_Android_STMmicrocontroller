@@ -337,7 +337,15 @@ public class BluetoothLeService extends Service {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
         }
-        mBluetoothGatt.writeCharacteristic(characteristic);
+
+        characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+        characteristic.setValue(100, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+        boolean ret = mBluetoothGatt.writeCharacteristic(characteristic);
+        if (ret){
+            Log.w(TAG, "YESSSS");
+        } else {
+            Log.w(TAG, "NOOOOO");
+        }
     }
 
 

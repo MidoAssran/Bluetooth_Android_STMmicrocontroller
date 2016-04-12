@@ -148,6 +148,10 @@ public class DeviceControlActivity extends Activity {
                             mBluetoothLeService.setCharacteristicNotification(
                                     characteristic, true);
                         }
+                        if ((charaProp | BluetoothGattCharacteristic.PROPERTY_WRITE) > 0) {
+                            mBluetoothLeService.writeCharacteristic(characteristic);
+                            Log.d(TAG, "Let's write this now!");
+                        }
                         return true;
                     }
                     return false;
@@ -302,7 +306,7 @@ public class DeviceControlActivity extends Activity {
         for (BluetoothGattService gattService : gattServices) {
             HashMap<String, String> currentServiceData = new HashMap<String, String>();
             uuid = gattService.getUuid().toString();
-//            if (SampleGattAttributes.lookup(uuid,unknownServiceString) != unknownServiceString) {
+            if (SampleGattAttributes.lookup(uuid,unknownServiceString) != unknownServiceString) {
                 currentServiceData.put(
                         LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
                 currentServiceData.put(LIST_UUID, uuid);
@@ -318,18 +322,18 @@ public class DeviceControlActivity extends Activity {
                 // Loops through available Characteristics.
                 for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
                     uuid = gattCharacteristic.getUuid().toString();
-//                    if (SampleGattAttributes.lookup(uuid, unknownCharaString) != unknownCharaString){
+                    if (SampleGattAttributes.lookup(uuid, unknownCharaString) != unknownCharaString){
                         charas.add(gattCharacteristic);
                         HashMap<String, String> currentCharaData = new HashMap<String, String>();
                         currentCharaData.put(
                                 LIST_NAME, SampleGattAttributes.lookup(uuid, unknownCharaString));
                         currentCharaData.put(LIST_UUID, uuid);
                         gattCharacteristicGroupData.add(currentCharaData);
-//                    }
+                    }
                 }
                 mGattCharacteristics.add(charas);
                 gattCharacteristicData.add(gattCharacteristicGroupData);
-//            }
+            }
         }
 
         SimpleExpandableListAdapter gattServiceAdapter = new SimpleExpandableListAdapter(
