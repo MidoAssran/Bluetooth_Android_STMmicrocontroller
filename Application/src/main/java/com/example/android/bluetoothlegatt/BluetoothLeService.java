@@ -339,7 +339,7 @@ public class BluetoothLeService extends Service {
         }
 
         characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-        characteristic.setValue(100, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+        characteristic.setValue(04, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
         boolean ret = mBluetoothGatt.writeCharacteristic(characteristic);
         if (ret){
             Log.w(TAG, "YESSSS");

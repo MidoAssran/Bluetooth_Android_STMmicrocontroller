@@ -201,7 +201,6 @@ public class DeviceControlActivity extends Activity {
                     }
 
                     if (characteristic != null) {
-                        characteristic.setValue("hello world");
                         mBluetoothLeService.writeCharacteristic(characteristic);
                         String s = SampleGattAttributes.lookup(characteristic.getUuid().toString(), unknownCharaString);
                         Log.d(TAG, String.format("IT'S ON; CHharacteristic: %s", s));
