@@ -239,7 +239,7 @@ public class DeviceControlActivity extends Activity {
         mSeekBrightness = (SeekBar) findViewById(R.id.seek_brightness);
         mSeekBrightness.setMax(99);
         mSeekSpeed = (SeekBar) findViewById(R.id.seek_speed);
-        mSeekBrightness.setMax(99);
+        mSeekSpeed.setMax(99);
 
         mLedToggleButton = (ToggleButton)findViewById(R.id.led_toggle);
         mLedToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
