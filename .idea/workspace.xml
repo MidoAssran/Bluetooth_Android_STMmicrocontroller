@@ -5,8 +5,9 @@
       <config>
         <devices>
           <device id="10.1in WXGA (Tablet)" />
-          <device id="2.7in QVGA" />
+          <device id="Nexus 5" />
           <device id="Nexus 5X" />
+          <device id="2.7in QVGA" />
           <device id="Nexus 4" />
         </devices>
         <target>android-23</target>
@@ -35,21 +36,25 @@
     <list default="true" id="914d4e00-488a-4566-9433-29d6502a0ce4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug-unaligned.apk" afterPath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug.apk" afterPath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/BluetoothLeService.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/BluetoothLeService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$1.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$2.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$3.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$4.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$5.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$6.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity$6.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/DeviceControlActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/R$id.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/bluetoothlegatt/R$id.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/Application/build/intermediates/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/BluetoothLeService.java" afterPath="$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/BluetoothLeService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/DeviceControlActivity.java" afterPath="$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/DeviceControlActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/generated/source/r/debug/com/example/android/bluetoothlegatt/R.java" afterPath="$PROJECT_DIR$/Application/build/generated/source/r/debug/com/example/android/bluetoothlegatt/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/Application/build/intermediates/symbols/debug/R.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/gatt_services_characteristics.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/gatt_services_characteristics.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/res/layout/gatt_services_characteristics.xml" afterPath="$PROJECT_DIR$/Application/src/main/res/layout/gatt_services_characteristics.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeResources/debug/merger.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BluetoothLeGatt.iws" />
@@ -95,7 +100,7 @@
       <file leaf-file-name="BluetoothLeService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/BluetoothLeService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5555553">
+            <state vertical-scroll-proportion="0.0">
               <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
               <folding />
             </state>
@@ -115,31 +120,11 @@
       <file leaf-file-name="DeviceControlActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/DeviceControlActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.609375">
-              <caret line="148" column="77" selection-start-line="148" selection-start-column="77" selection-end-line="148" selection-end-column="77" />
+            <state vertical-scroll-proportion="0.34375">
+              <caret line="280" column="45" selection-start-line="280" selection-start-column="45" selection-end-line="280" selection-end-column="45" />
               <folding>
-                <element signature="e#0#20083#0" expanded="true" />
+                <element signature="e#0#20961#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#4621#4639#0" expanded="true" />
-                <element signature="e#4842#4863#0" expanded="true" />
-                <element signature="e#5949#8138#0" expanded="true" />
-                <element signature="e#8137#8138#0" expanded="true" />
-                <element signature="e#8272#8288#0" expanded="true" />
-                <element signature="e#8318#8334#0" expanded="true" />
-                <element signature="e#8364#8380#0" expanded="true" />
-                <element signature="e#8563#8620#0" expanded="true" />
-                <element signature="e#11336#11532#0" expanded="true" />
-                <element signature="e#11531#11532#0" expanded="true" />
-                <element signature="e#15260#15408#0" expanded="true" />
-                <element signature="e#15407#15408#0" expanded="true" />
-                <element signature="e#16459#16509#0" expanded="true" />
-                <element signature="e#16547#16604#0" expanded="true" />
-                <element signature="e#16680#16705#0" expanded="true" />
-                <element signature="e#16817#16853#0" expanded="true" />
-                <element signature="e#17128#17144#0" expanded="true" />
-                <element signature="e#17665#17690#0" expanded="true" />
-                <element signature="e#17925#17954#0" expanded="true" />
-                <element signature="e#18416#18432#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -155,50 +140,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DeviceScanActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/DeviceScanActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="185" column="0" selection-start-line="182" selection-start-column="4" selection-end-line="185" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#9263#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="gatt_services_characteristics.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Application/src/main/res/layout/gatt_services_characteristics.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.206897">
-              <caret line="108" column="51" selection-start-line="108" selection-start-column="35" selection-end-line="108" selection-end-column="51" />
-              <folding>
-                <element signature="e#1294#1324#0" expanded="true" />
-                <element signature="e#2031#2052#0" expanded="true" />
-                <element signature="e#2386#2408#0" expanded="true" />
-                <element signature="e#2821#2842#0" expanded="true" />
-                <element signature="e#3171#3188#0" expanded="true" />
-                <element signature="e#3502#3522#0" expanded="true" />
-                <element signature="e#3823#3840#0" expanded="true" />
-                <element signature="e#4142#4162#0" expanded="true" />
-                <element signature="e#4463#4480#0" expanded="true" />
-                <element signature="e#4783#4809#0" expanded="true" />
-                <element signature="e#5116#5134#0" expanded="true" />
-                <element signature="e#5506#5525#0" expanded="true" />
-                <element signature="e#5956#5977#0" expanded="true" />
-                <element signature="e#6408#6430#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
           <provider editor-type-id="android-designer">
             <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.827586">
+              <caret line="123" column="8" selection-start-line="123" selection-start-column="8" selection-end-line="123" selection-end-column="8" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Application/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.777778">
+            <state vertical-scroll-proportion="0.0">
               <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
@@ -1594,8 +1552,8 @@
         <option value="$PROJECT_DIR$/Application/src/main/res/layout/listitem_device.xml" />
         <option value="$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/SampleGattAttributes.java" />
         <option value="$PROJECT_DIR$/Application/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/Application/src/main/res/layout/gatt_services_characteristics.xml" />
         <option value="$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/BluetoothLeService.java" />
+        <option value="$PROJECT_DIR$/Application/src/main/res/layout/gatt_services_characteristics.xml" />
         <option value="$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/DeviceControlActivity.java" />
       </list>
     </option>
@@ -1640,7 +1598,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1777,8 +1735,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1891,6 +1847,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2101,11 +2059,11 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.49284694" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286004" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32251522" sideWeight="0.67167383" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32251522" sideWeight="0.5671406" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32251522" sideWeight="0.4328594" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36954206" sideWeight="0.64444447" order="16" side_tool="false" content_ui="tabs" />
@@ -2117,7 +2075,7 @@
       <window_info id="Maven Projects" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328541" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2022117" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23732251" sideWeight="0.35555556" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23732251" sideWeight="0.35387045" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2148,7 +2106,7 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="7" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2165,28 +2123,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
           <folding>
-            <element signature="e#0#20083#0" expanded="true" />
+            <element signature="e#0#20961#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#4621#4639#0" expanded="true" />
-            <element signature="e#4842#4863#0" expanded="true" />
-            <element signature="e#5949#8138#0" expanded="true" />
-            <element signature="e#8137#8138#0" expanded="true" />
-            <element signature="e#8272#8288#0" expanded="true" />
-            <element signature="e#8318#8334#0" expanded="true" />
-            <element signature="e#8364#8380#0" expanded="true" />
-            <element signature="e#8563#8620#0" expanded="true" />
-            <element signature="e#11336#11532#0" expanded="true" />
-            <element signature="e#11531#11532#0" expanded="true" />
-            <element signature="e#15260#15408#0" expanded="true" />
-            <element signature="e#15407#15408#0" expanded="true" />
-            <element signature="e#16459#16509#0" expanded="true" />
-            <element signature="e#16547#16604#0" expanded="true" />
-            <element signature="e#16680#16705#0" expanded="true" />
-            <element signature="e#16817#16853#0" expanded="true" />
-            <element signature="e#17128#17144#0" expanded="true" />
-            <element signature="e#17665#17690#0" expanded="true" />
-            <element signature="e#17925#17954#0" expanded="true" />
-            <element signature="e#18416#18432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2221,28 +2159,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
           <folding>
-            <element signature="e#0#20083#0" expanded="true" />
+            <element signature="e#0#20961#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#4621#4639#0" expanded="true" />
-            <element signature="e#4842#4863#0" expanded="true" />
-            <element signature="e#5949#8138#0" expanded="true" />
-            <element signature="e#8137#8138#0" expanded="true" />
-            <element signature="e#8272#8288#0" expanded="true" />
-            <element signature="e#8318#8334#0" expanded="true" />
-            <element signature="e#8364#8380#0" expanded="true" />
-            <element signature="e#8563#8620#0" expanded="true" />
-            <element signature="e#11336#11532#0" expanded="true" />
-            <element signature="e#11531#11532#0" expanded="true" />
-            <element signature="e#15260#15408#0" expanded="true" />
-            <element signature="e#15407#15408#0" expanded="true" />
-            <element signature="e#16459#16509#0" expanded="true" />
-            <element signature="e#16547#16604#0" expanded="true" />
-            <element signature="e#16680#16705#0" expanded="true" />
-            <element signature="e#16817#16853#0" expanded="true" />
-            <element signature="e#17128#17144#0" expanded="true" />
-            <element signature="e#17665#17690#0" expanded="true" />
-            <element signature="e#17925#17954#0" expanded="true" />
-            <element signature="e#18416#18432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2277,28 +2195,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
           <folding>
-            <element signature="e#0#20083#0" expanded="true" />
+            <element signature="e#0#20961#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#4621#4639#0" expanded="true" />
-            <element signature="e#4842#4863#0" expanded="true" />
-            <element signature="e#5949#8138#0" expanded="true" />
-            <element signature="e#8137#8138#0" expanded="true" />
-            <element signature="e#8272#8288#0" expanded="true" />
-            <element signature="e#8318#8334#0" expanded="true" />
-            <element signature="e#8364#8380#0" expanded="true" />
-            <element signature="e#8563#8620#0" expanded="true" />
-            <element signature="e#11336#11532#0" expanded="true" />
-            <element signature="e#11531#11532#0" expanded="true" />
-            <element signature="e#15260#15408#0" expanded="true" />
-            <element signature="e#15407#15408#0" expanded="true" />
-            <element signature="e#16459#16509#0" expanded="true" />
-            <element signature="e#16547#16604#0" expanded="true" />
-            <element signature="e#16680#16705#0" expanded="true" />
-            <element signature="e#16817#16853#0" expanded="true" />
-            <element signature="e#17128#17144#0" expanded="true" />
-            <element signature="e#17665#17690#0" expanded="true" />
-            <element signature="e#17925#17954#0" expanded="true" />
-            <element signature="e#18416#18432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2333,28 +2231,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
           <folding>
-            <element signature="e#0#20083#0" expanded="true" />
+            <element signature="e#0#20961#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#4621#4639#0" expanded="true" />
-            <element signature="e#4842#4863#0" expanded="true" />
-            <element signature="e#5949#8138#0" expanded="true" />
-            <element signature="e#8137#8138#0" expanded="true" />
-            <element signature="e#8272#8288#0" expanded="true" />
-            <element signature="e#8318#8334#0" expanded="true" />
-            <element signature="e#8364#8380#0" expanded="true" />
-            <element signature="e#8563#8620#0" expanded="true" />
-            <element signature="e#11336#11532#0" expanded="true" />
-            <element signature="e#11531#11532#0" expanded="true" />
-            <element signature="e#15260#15408#0" expanded="true" />
-            <element signature="e#15407#15408#0" expanded="true" />
-            <element signature="e#16459#16509#0" expanded="true" />
-            <element signature="e#16547#16604#0" expanded="true" />
-            <element signature="e#16680#16705#0" expanded="true" />
-            <element signature="e#16817#16853#0" expanded="true" />
-            <element signature="e#17128#17144#0" expanded="true" />
-            <element signature="e#17665#17690#0" expanded="true" />
-            <element signature="e#17925#17954#0" expanded="true" />
-            <element signature="e#18416#18432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2389,28 +2267,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
           <folding>
-            <element signature="e#0#20083#0" expanded="true" />
+            <element signature="e#0#20961#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#4621#4639#0" expanded="true" />
-            <element signature="e#4842#4863#0" expanded="true" />
-            <element signature="e#5949#8138#0" expanded="true" />
-            <element signature="e#8137#8138#0" expanded="true" />
-            <element signature="e#8272#8288#0" expanded="true" />
-            <element signature="e#8318#8334#0" expanded="true" />
-            <element signature="e#8364#8380#0" expanded="true" />
-            <element signature="e#8563#8620#0" expanded="true" />
-            <element signature="e#11336#11532#0" expanded="true" />
-            <element signature="e#11531#11532#0" expanded="true" />
-            <element signature="e#15260#15408#0" expanded="true" />
-            <element signature="e#15407#15408#0" expanded="true" />
-            <element signature="e#16459#16509#0" expanded="true" />
-            <element signature="e#16547#16604#0" expanded="true" />
-            <element signature="e#16680#16705#0" expanded="true" />
-            <element signature="e#16817#16853#0" expanded="true" />
-            <element signature="e#17128#17144#0" expanded="true" />
-            <element signature="e#17665#17690#0" expanded="true" />
-            <element signature="e#17925#17954#0" expanded="true" />
-            <element signature="e#18416#18432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2445,28 +2303,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#20083#0" expanded="true" />
+            <element signature="e#0#20961#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#4621#4639#0" expanded="true" />
-            <element signature="e#4842#4863#0" expanded="true" />
-            <element signature="e#5949#8138#0" expanded="true" />
-            <element signature="e#8137#8138#0" expanded="true" />
-            <element signature="e#8272#8288#0" expanded="true" />
-            <element signature="e#8318#8334#0" expanded="true" />
-            <element signature="e#8364#8380#0" expanded="true" />
-            <element signature="e#8563#8620#0" expanded="true" />
-            <element signature="e#11336#11532#0" expanded="true" />
-            <element signature="e#11531#11532#0" expanded="true" />
-            <element signature="e#15260#15408#0" expanded="true" />
-            <element signature="e#15407#15408#0" expanded="true" />
-            <element signature="e#16459#16509#0" expanded="true" />
-            <element signature="e#16547#16604#0" expanded="true" />
-            <element signature="e#16680#16705#0" expanded="true" />
-            <element signature="e#16817#16853#0" expanded="true" />
-            <element signature="e#17128#17144#0" expanded="true" />
-            <element signature="e#17665#17690#0" expanded="true" />
-            <element signature="e#17925#17954#0" expanded="true" />
-            <element signature="e#18416#18432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2588,10 +2426,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/res/drawable-hdpi/tile.9.png">
-      <provider selected="true" editor-type-id="ninepatcheditor">
+      <provider editor-type-id="images">
         <state />
       </provider>
-      <provider editor-type-id="images">
+      <provider selected="true" editor-type-id="ninepatcheditor">
         <state />
       </provider>
     </entry>
@@ -2654,42 +2492,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.777778">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/src/main/res/layout/gatt_services_characteristics.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.206897">
-          <caret line="108" column="51" selection-start-line="108" selection-start-column="35" selection-end-line="108" selection-end-column="51" />
-          <folding>
-            <element signature="e#1294#1324#0" expanded="true" />
-            <element signature="e#2031#2052#0" expanded="true" />
-            <element signature="e#2386#2408#0" expanded="true" />
-            <element signature="e#2821#2842#0" expanded="true" />
-            <element signature="e#3171#3188#0" expanded="true" />
-            <element signature="e#3502#3522#0" expanded="true" />
-            <element signature="e#3823#3840#0" expanded="true" />
-            <element signature="e#4142#4162#0" expanded="true" />
-            <element signature="e#4463#4480#0" expanded="true" />
-            <element signature="e#4783#4809#0" expanded="true" />
-            <element signature="e#5116#5134#0" expanded="true" />
-            <element signature="e#5506#5525#0" expanded="true" />
-            <element signature="e#5956#5977#0" expanded="true" />
-            <element signature="e#6408#6430#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-23/android/bluetooth/BluetoothGatt.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="1015" column="19" selection-start-line="1015" selection-start-column="19" selection-end-line="1015" selection-end-column="19" />
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2704,39 +2508,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/BluetoothLeService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5555553">
+        <state vertical-scroll-proportion="0.0">
           <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/src/main/res/layout/gatt_services_characteristics.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.827586">
+          <caret line="123" column="8" selection-start-line="123" selection-start-column="8" selection-end-line="123" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-23/android/bluetooth/BluetoothGatt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1015" column="19" selection-start-line="1015" selection-start-column="19" selection-end-line="1015" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/bluetoothlegatt/DeviceControlActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.609375">
-          <caret line="148" column="77" selection-start-line="148" selection-start-column="77" selection-end-line="148" selection-end-column="77" />
+        <state vertical-scroll-proportion="0.34375">
+          <caret line="280" column="45" selection-start-line="280" selection-start-column="45" selection-end-line="280" selection-end-column="45" />
           <folding>
-            <element signature="e#0#20083#0" expanded="true" />
+            <element signature="e#0#20961#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#4621#4639#0" expanded="true" />
-            <element signature="e#4842#4863#0" expanded="true" />
-            <element signature="e#5949#8138#0" expanded="true" />
-            <element signature="e#8137#8138#0" expanded="true" />
-            <element signature="e#8272#8288#0" expanded="true" />
-            <element signature="e#8318#8334#0" expanded="true" />
-            <element signature="e#8364#8380#0" expanded="true" />
-            <element signature="e#8563#8620#0" expanded="true" />
-            <element signature="e#11336#11532#0" expanded="true" />
-            <element signature="e#11531#11532#0" expanded="true" />
-            <element signature="e#15260#15408#0" expanded="true" />
-            <element signature="e#15407#15408#0" expanded="true" />
-            <element signature="e#16459#16509#0" expanded="true" />
-            <element signature="e#16547#16604#0" expanded="true" />
-            <element signature="e#16680#16705#0" expanded="true" />
-            <element signature="e#16817#16853#0" expanded="true" />
-            <element signature="e#17128#17144#0" expanded="true" />
-            <element signature="e#17665#17690#0" expanded="true" />
-            <element signature="e#17925#17954#0" expanded="true" />
-            <element signature="e#18416#18432#0" expanded="true" />
           </folding>
         </state>
       </provider>

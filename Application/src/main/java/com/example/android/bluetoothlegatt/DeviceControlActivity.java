@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
+import android.widget.SeekBar;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -67,6 +68,8 @@ public class DeviceControlActivity extends Activity {
     private TextView mRollField;
     private TextView mTempField;
     private TextView mDoubleTapField;
+    private SeekBar mSeekBrightness;
+    private SeekBar mSeekSpeed;
 
     private String mDeviceName;
     private String mDeviceAddress;
@@ -201,21 +204,14 @@ public class DeviceControlActivity extends Activity {
 
     public void readCharacteristic(BluetoothGattCharacteristic characteristic){
         if ((characteristic.getProperties() | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
-//            // If there is an active notification on a characteristic, clear
-//            // it first so it doesn't update the data field on the user interface.
-//            if (mNotifyCharacteristic != null) {
-//                mBluetoothLeService.setCharacteristicNotification(
-//                        mNotifyCharacteristic, false);
-//                mNotifyCharacteristic = null;
-//            }
             mBluetoothLeService.readCharacteristic(characteristic);
         }
     }
 
-    public void writeCharacteristic(BluetoothGattCharacteristic characteristic){
+    public void writeCharacteristic(BluetoothGattCharacteristic characteristic, int value){
         if (characteristic != null) {
             if ((characteristic.getProperties() | BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) > 0) {
-                characteristic.setValue(255, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+                characteristic.setValue(value, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
                 mBluetoothLeService.writeCharacteristic(characteristic);
             }
         }
@@ -240,6 +236,10 @@ public class DeviceControlActivity extends Activity {
         mRollField = (TextView) findViewById(R.id.roll_value);
         mTempField = (TextView) findViewById(R.id.temp_value);
         mDoubleTapField = (TextView) findViewById(R.id.double_tap_value);
+        mSeekBrightness = (SeekBar) findViewById(R.id.seek_brightness);
+        mSeekBrightness.setMax(99);
+        mSeekSpeed = (SeekBar) findViewById(R.id.seek_speed);
+        mSeekBrightness.setMax(99);
 
         mLedToggleButton = (ToggleButton)findViewById(R.id.led_toggle);
         mLedToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -261,6 +261,10 @@ public class DeviceControlActivity extends Activity {
     final Runnable r = new Runnable() {
         private int toggle_read = 0;
         private int toggle_LED = 0;
+        private int last_seek_brightness = 0;
+        private int current_seek_brightness = 0;
+        private int last_seek_speed = 0;
+        private int current_seek_speed = 0;
         private BluetoothGattCharacteristic acc_chara;
         private BluetoothGattCharacteristic temp_chara;
         private BluetoothGattCharacteristic tgl_chara;
@@ -275,19 +279,32 @@ public class DeviceControlActivity extends Activity {
                 dbt_chara = getCharacteristic("Double Tap Characteristic");
             } else {
                 if ((toggle_LED == 0 && led_on) || (toggle_LED == 1 && !led_on)){
-//                    mBluetoothLeService.setCharacteristicNotification(dbt_chara, toggle_notify);
                     toggle_LED = (led_on) ? 1 : 0;
-                    writeCharacteristic(tgl_chara);
+                    writeCharacteristic(tgl_chara, 255);
                 } else {
                     if (toggle_read == 0) {
                         readCharacteristic(acc_chara);
-                    } else {
+                    } else if (toggle_read == 1) {
                         readCharacteristic(temp_chara);
+                        if (!led_on) toggle_read+=2;
+                    } else if (toggle_read == 2){
+                        current_seek_brightness = mSeekBrightness.getProgress();
+                        if (current_seek_brightness != last_seek_brightness) {
+                            last_seek_brightness = current_seek_brightness;
+                            int temp = last_seek_brightness + 100;
+                            writeCharacteristic(tgl_chara, temp);
+                        }
+                    } else if (toggle_read == 3){
+                        current_seek_speed = mSeekSpeed.getProgress();
+                        if (current_seek_speed != last_seek_speed){
+                            last_seek_speed = current_seek_speed;
+                            writeCharacteristic(tgl_chara, last_seek_speed);
+                        }
                     }
-                    toggle_read = (toggle_read + 1) % 2;
+                    toggle_read = (toggle_read + 1) % 4;
                 }
             }
-            mDataHandler.postDelayed(r, 500);
+            mDataHandler.postDelayed(r, 400);
         }
     };
 

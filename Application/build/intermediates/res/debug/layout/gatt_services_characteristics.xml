@@ -122,7 +122,7 @@
             android:text="@string/label_PWM"
             android:textSize="18sp"/>
         <SeekBar
-            android:id="@+id/seek1"
+            android:id="@+id/seek_brightness"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -133,7 +133,7 @@
             android:text="@string/label_speed"
             android:textSize="18sp"/>
         <SeekBar
-            android:id="@+id/seek2"
+            android:id="@+id/seek_speed"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

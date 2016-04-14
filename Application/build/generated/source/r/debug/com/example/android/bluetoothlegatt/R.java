@@ -151,8 +151,8 @@ containing a value of this type.
         public static final int menu_stop=0x7f09000f;
         public static final int pitch_value=0x7f090002;
         public static final int roll_value=0x7f090003;
-        public static final int seek1=0x7f090006;
-        public static final int seek2=0x7f090007;
+        public static final int seek_brightness=0x7f090006;
+        public static final int seek_speed=0x7f090007;
         public static final int temp_value=0x7f090004;
     }
     public static final class layout {
