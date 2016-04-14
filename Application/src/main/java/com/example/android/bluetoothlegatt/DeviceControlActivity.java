@@ -81,7 +81,6 @@ public class DeviceControlActivity extends Activity {
     private final String LIST_UUID = "UUID";
 
     private Handler mDataHandler = new Handler();
-    private Handler mTempHandler;
 
     // Code to manage Service lifecycle.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -202,13 +201,13 @@ public class DeviceControlActivity extends Activity {
 
     public void readCharacteristic(BluetoothGattCharacteristic characteristic){
         if ((characteristic.getProperties() | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
-            // If there is an active notification on a characteristic, clear
-            // it first so it doesn't update the data field on the user interface.
-            if (mNotifyCharacteristic != null) {
-                mBluetoothLeService.setCharacteristicNotification(
-                        mNotifyCharacteristic, false);
-                mNotifyCharacteristic = null;
-            }
+//            // If there is an active notification on a characteristic, clear
+//            // it first so it doesn't update the data field on the user interface.
+//            if (mNotifyCharacteristic != null) {
+//                mBluetoothLeService.setCharacteristicNotification(
+//                        mNotifyCharacteristic, false);
+//                mNotifyCharacteristic = null;
+//            }
             mBluetoothLeService.readCharacteristic(characteristic);
         }
     }
@@ -269,14 +268,14 @@ public class DeviceControlActivity extends Activity {
 
         @Override
         public void run() {
-            if (acc_chara == null || temp_chara == null || tgl_chara == null){
+            if (acc_chara == null || temp_chara == null || tgl_chara == null || dbt_chara == null){
                 acc_chara = getCharacteristic("Accelerometer Value Characteristic");
                 temp_chara = getCharacteristic("Temperature Value Characteristic");
                 tgl_chara = getCharacteristic("LED Toggle Characteristic");
                 dbt_chara = getCharacteristic("Double Tap Characteristic");
             } else {
-                mBluetoothLeService.setCharacteristicNotification(dbt_chara, toggle_notify);
                 if ((toggle_LED == 0 && led_on) || (toggle_LED == 1 && !led_on)){
+//                    mBluetoothLeService.setCharacteristicNotification(dbt_chara, toggle_notify);
                     toggle_LED = (led_on) ? 1 : 0;
                     writeCharacteristic(tgl_chara);
                 } else {
@@ -300,13 +299,19 @@ public class DeviceControlActivity extends Activity {
             final boolean result = mBluetoothLeService.connect(mDeviceAddress);
             Log.d(TAG, "Connect request result=" + result);
         }
+        if (removed){
+            mDataHandler.post(r);
+        }
+
     }
 
+    boolean removed = false;
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mGattUpdateReceiver);
         mDataHandler.removeCallbacks(r);
+        removed = true;
     }
 
     @Override
@@ -314,6 +319,7 @@ public class DeviceControlActivity extends Activity {
         super.onDestroy();
         unbindService(mServiceConnection);
         mBluetoothLeService = null;
+        mDataHandler.removeCallbacks(r);
     }
 
     @Override

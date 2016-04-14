@@ -371,7 +371,7 @@ public class BluetoothLeService extends Service {
                 descriptor.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
             }
             mBluetoothGatt.writeDescriptor(descriptor);
-            
+
             double_tap_enabled = enabled;
             final String s = (enabled) ? "@D@ENABLED" : "@D@DISABLED";
             Log.d(TAG, s);
