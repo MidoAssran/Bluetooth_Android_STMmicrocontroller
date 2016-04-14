@@ -29,6 +29,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,12 +40,13 @@ import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import junit.framework.Assert;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
 /**
@@ -78,6 +80,9 @@ public class DeviceControlActivity extends Activity {
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
 
+    private Handler mDataHandler = new Handler();
+    private Handler mTempHandler;
+
     // Code to manage Service lifecycle.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -85,7 +90,7 @@ public class DeviceControlActivity extends Activity {
         public void onServiceConnected(ComponentName componentName, IBinder service) {
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
-                Log.e(TAG, "Unable to initialize Bluetooth");
+                Log.e(TAG, "MIDO Unable to initialize Bluetooth");
                 finish();
             }
             // Automatically connects to the device upon successful start-up initialization.
@@ -123,10 +128,12 @@ public class DeviceControlActivity extends Activity {
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
             } else if (BluetoothLeService.ACTION_DOUBLE_TAP.equals(action)){
-                Log.d(TAG, "JACK!!!!!!");
+                Log.d(TAG, "MIDO JACK!!!!!!");
             }
         }
     };
+
+    boolean toggle_notify = true;
 
     // If a given GATT characteristic is selected, check for supported features.  This sample
     // demonstrates 'Read' and 'Notify' features.  See
@@ -153,11 +160,14 @@ public class DeviceControlActivity extends Activity {
                         }
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
                             mNotifyCharacteristic = characteristic;
-                            mBluetoothLeService.setCharacteristicNotification(characteristic, true);
+                            mBluetoothLeService.setCharacteristicNotification(characteristic, toggle_notify);
+                            toggle_notify = (toggle_notify) ? false : true;
+                            Log.d(TAG, "MIDO Let's toggle notifications " + characteristic.getUuid().toString() + " " + toggle_notify);
+
                         }
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_WRITE) > 0) {
                             mBluetoothLeService.writeCharacteristic(characteristic);
-                            Log.d(TAG, "Let's write this now!");
+                            Log.d(TAG, "MIDO Let's write this now! " + characteristic.getUuid().toString());
                         }
                         return true;
                     }
@@ -170,6 +180,46 @@ public class DeviceControlActivity extends Activity {
         mPitchField.setText(R.string.no_data);
         mRollField.setText(R.string.no_data);
         mTempField.setText(R.string.no_data);
+
+    }
+
+
+    public BluetoothGattCharacteristic getCharacteristic(String charaName){
+        BluetoothGattCharacteristic characteristic = null;
+        String unknownCharaString = getResources().getString(R.string.unknown_characteristic);
+        // Loops through available Characteristics.
+        for (ArrayList<BluetoothGattCharacteristic> service : mGattCharacteristics) {
+            for (BluetoothGattCharacteristic gattCharacteristic : service) {
+                String uuid = gattCharacteristic.getUuid().toString();
+                if (SampleGattAttributes.lookup(uuid, unknownCharaString).equals(charaName)) {
+                    characteristic = gattCharacteristic;
+                }
+            }
+        }
+
+        return characteristic;
+    }
+
+    public void readCharacteristic(BluetoothGattCharacteristic characteristic){
+        if ((characteristic.getProperties() | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+            // If there is an active notification on a characteristic, clear
+            // it first so it doesn't update the data field on the user interface.
+            if (mNotifyCharacteristic != null) {
+                mBluetoothLeService.setCharacteristicNotification(
+                        mNotifyCharacteristic, false);
+                mNotifyCharacteristic = null;
+            }
+            mBluetoothLeService.readCharacteristic(characteristic);
+        }
+    }
+
+    public void writeCharacteristic(BluetoothGattCharacteristic characteristic){
+        if (characteristic != null) {
+            if ((characteristic.getProperties() | BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) > 0) {
+                characteristic.setValue(255, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+                mBluetoothLeService.writeCharacteristic(characteristic);
+            }
+        }
 
     }
 
@@ -195,23 +245,8 @@ public class DeviceControlActivity extends Activity {
         mLedToggleButton = (ToggleButton)findViewById(R.id.led_toggle);
         mLedToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                BluetoothGattCharacteristic characteristic = null;
-                String unknownCharaString = getResources().getString(R.string.unknown_characteristic);
-                // Loops through available Characteristics.
-                for (ArrayList<BluetoothGattCharacteristic> service : mGattCharacteristics) {
-                    for (BluetoothGattCharacteristic gattCharacteristic : service) {
-                        String uuid = gattCharacteristic.getUuid().toString();
-                        if (SampleGattAttributes.lookup(uuid, unknownCharaString).equals("LED Toggle Characteristic")) {
-                            characteristic = gattCharacteristic;
-                        }
-                    }
-                }
-                if (characteristic != null) {
-                    if ((characteristic.getProperties() | BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) > 0) {
-                        characteristic.setValue(255, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
-                        mBluetoothLeService.writeCharacteristic(characteristic);
-                    }
-                }
+                led_on = isChecked;
+
             }
         });
 
@@ -220,7 +255,42 @@ public class DeviceControlActivity extends Activity {
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
+        mDataHandler.post(r);
     }
+
+    boolean led_on = false;
+    final Runnable r = new Runnable() {
+        private int toggle_read = 0;
+        private int toggle_LED = 0;
+        private BluetoothGattCharacteristic acc_chara;
+        private BluetoothGattCharacteristic temp_chara;
+        private BluetoothGattCharacteristic tgl_chara;
+        private BluetoothGattCharacteristic dbt_chara;
+
+        @Override
+        public void run() {
+            if (acc_chara == null || temp_chara == null || tgl_chara == null){
+                acc_chara = getCharacteristic("Accelerometer Value Characteristic");
+                temp_chara = getCharacteristic("Temperature Value Characteristic");
+                tgl_chara = getCharacteristic("LED Toggle Characteristic");
+                dbt_chara = getCharacteristic("Double Tap Characteristic");
+            } else {
+                mBluetoothLeService.setCharacteristicNotification(dbt_chara, toggle_notify);
+                if ((toggle_LED == 0 && led_on) || (toggle_LED == 1 && !led_on)){
+                    toggle_LED = (led_on) ? 1 : 0;
+                    writeCharacteristic(tgl_chara);
+                } else {
+                    if (toggle_read == 0) {
+                        readCharacteristic(acc_chara);
+                    } else {
+                        readCharacteristic(temp_chara);
+                    }
+                    toggle_read = (toggle_read + 1) % 2;
+                }
+            }
+            mDataHandler.postDelayed(r, 500);
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -230,13 +300,13 @@ public class DeviceControlActivity extends Activity {
             final boolean result = mBluetoothLeService.connect(mDeviceAddress);
             Log.d(TAG, "Connect request result=" + result);
         }
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mGattUpdateReceiver);
+        mDataHandler.removeCallbacks(r);
     }
 
     @Override
@@ -361,6 +431,7 @@ public class DeviceControlActivity extends Activity {
                 new int[] { android.R.id.text1, android.R.id.text2 }
         );
         mGattServicesList.setAdapter(gattServiceAdapter);
+
     }
 
     private static IntentFilter makeGattUpdateIntentFilter() {
