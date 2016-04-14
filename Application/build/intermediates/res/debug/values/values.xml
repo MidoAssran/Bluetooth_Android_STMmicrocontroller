@@ -26,7 +26,9 @@
     <eat-comment/>
     <string name="ble_not_supported">BLE is not supported</string>
     <string name="connected">Connected</string>
+    <string name="disabled">DISABLED</string>
     <string name="disconnected">Disconnected</string>
+    <string name="enabled">ENABLED</string>
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
     <!-- From: file:/Users/midoassran/Desktop/code/BluetoothLeGatt/Application/src/main/res/values/base-strings.xml -->
     <eat-comment/>
@@ -43,10 +45,13 @@
     <!-- From: file:/Users/midoassran/Desktop/code/BluetoothLeGatt/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="label_PWM">LED Brightness:</string>
-    <string name="label_data">Data:</string>
     <string name="label_device_address">Device address:</string>
+    <string name="label_double_tap">Double-Tap Notifications:</string>
+    <string name="label_pitch">Pitch:</string>
+    <string name="label_roll">Roll:</string>
     <string name="label_speed">LED Rotation Speed:</string>
     <string name="label_state">State:</string>
+    <string name="label_temp">Temperature:</string>
     <string name="label_toggle">Toggle LED:</string>
     <string name="menu_connect">Connect</string>
     <string name="menu_disconnect">Disconnect</string>

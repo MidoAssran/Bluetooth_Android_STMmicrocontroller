@@ -15,7 +15,13 @@
 -->
 <resources>
     <string name="ble_not_supported">BLE is not supported</string>
-    <string name="label_data">Data:</string>
+    <string name="label_pitch">Pitch:</string>
+    <string name="label_roll">Roll:</string>
+    <string name="label_temp">Temperature:</string>
+    <string name="label_double_tap">Double-Tap Notifications:</string>
+    <string name="enabled">ENABLED</string>
+    <string name="disabled">DISABLED</string>
+
     <string name="label_PWM">LED Brightness:</string>
     <string name="label_speed">LED Rotation Speed:</string>
     <string name="label_toggle">Toggle LED:</string>

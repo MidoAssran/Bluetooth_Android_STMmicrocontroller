@@ -39,9 +39,13 @@ import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * For a given BLE device, this Activity provides the user interface to connect, display data,
@@ -55,9 +59,13 @@ public class DeviceControlActivity extends Activity {
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
 
-    private ToggleButton mToggleButton;
+    private ToggleButton mLedToggleButton;
     private TextView mConnectionState;
-    private TextView mDataField;
+    private TextView mPitchField;
+    private TextView mRollField;
+    private TextView mTempField;
+    private TextView mDoubleTapField;
+
     private String mDeviceName;
     private String mDeviceAddress;
     private ExpandableListView mGattServicesList;
@@ -145,8 +153,7 @@ public class DeviceControlActivity extends Activity {
                         }
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
                             mNotifyCharacteristic = characteristic;
-                            mBluetoothLeService.setCharacteristicNotification(
-                                    characteristic, true);
+                            mBluetoothLeService.setCharacteristicNotification(characteristic, true);
                         }
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_WRITE) > 0) {
                             mBluetoothLeService.writeCharacteristic(characteristic);
@@ -160,7 +167,10 @@ public class DeviceControlActivity extends Activity {
 
     private void clearUI() {
         mGattServicesList.setAdapter((SimpleExpandableListAdapter) null);
-        mDataField.setText(R.string.no_data);
+        mPitchField.setText(R.string.no_data);
+        mRollField.setText(R.string.no_data);
+        mTempField.setText(R.string.no_data);
+
     }
 
     @Override
@@ -177,38 +187,30 @@ public class DeviceControlActivity extends Activity {
         mGattServicesList = (ExpandableListView) findViewById(R.id.gatt_services_list);
         mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) findViewById(R.id.connection_state);
-        mDataField = (TextView) findViewById(R.id.data_value);
+        mPitchField = (TextView) findViewById(R.id.pitch_value);
+        mRollField = (TextView) findViewById(R.id.roll_value);
+        mTempField = (TextView) findViewById(R.id.temp_value);
+        mDoubleTapField = (TextView) findViewById(R.id.double_tap_value);
 
-        mToggleButton = (ToggleButton)findViewById(R.id.toggleButton1);
-        mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mLedToggleButton = (ToggleButton)findViewById(R.id.led_toggle);
+        mLedToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-
-                    BluetoothGattCharacteristic characteristic = null;
-
-                    String unknownCharaString = getResources().getString(R.string.unknown_characteristic);
-//                    ArrayList<BluetoothGattCharacteristic> charas = mGattCharacteristics.get(2);
-
-                    // Loops through available Characteristics.
-                    for (ArrayList<BluetoothGattCharacteristic> service : mGattCharacteristics){
-                        for (BluetoothGattCharacteristic gattCharacteristic : service) {
-                            String uuid = gattCharacteristic.getUuid().toString();
-                            if (SampleGattAttributes.lookup(uuid, unknownCharaString) != unknownCharaString){
-                                characteristic = gattCharacteristic;
-                            }
+                BluetoothGattCharacteristic characteristic = null;
+                String unknownCharaString = getResources().getString(R.string.unknown_characteristic);
+                // Loops through available Characteristics.
+                for (ArrayList<BluetoothGattCharacteristic> service : mGattCharacteristics) {
+                    for (BluetoothGattCharacteristic gattCharacteristic : service) {
+                        String uuid = gattCharacteristic.getUuid().toString();
+                        if (SampleGattAttributes.lookup(uuid, unknownCharaString).equals("LED Toggle Characteristic")) {
+                            characteristic = gattCharacteristic;
                         }
                     }
-
-                    if (characteristic != null) {
+                }
+                if (characteristic != null) {
+                    if ((characteristic.getProperties() | BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) > 0) {
+                        characteristic.setValue(255, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
                         mBluetoothLeService.writeCharacteristic(characteristic);
-                        String s = SampleGattAttributes.lookup(characteristic.getUuid().toString(), unknownCharaString);
-                        Log.d(TAG, String.format("IT'S ON; CHharacteristic: %s", s));
                     }
-
-
-                } else {
-                    Log.d(TAG, "IT'S OFF");
                 }
             }
         });
@@ -284,7 +286,19 @@ public class DeviceControlActivity extends Activity {
 
     private void displayData(String data) {
         if (data != null) {
-            mDataField.setText(data);
+            for (String retval: data.split(";", 2)){
+                String dCode = retval.substring(0,3);
+                String txt = retval.substring(3);
+                if (dCode.equals("@P@")){
+                    mPitchField.setText(txt);
+                } else if (dCode.equals("@R@")){
+                    mRollField.setText(txt);
+                } else if (dCode.equals("@T@")){
+                    mTempField.setText(txt);
+                } else if (dCode.equals("@D@")){
+                    mDoubleTapField.setText(txt);
+                }
+            }
         }
     }
 

@@ -160,28 +160,26 @@ public class BluetoothLeService extends Service {
 //            temp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
 //            intent = new Intent(ACTION_DOUBLE_TAP);
             wakeDevice();
-            final String s = (temp==1) ? " Double Tap: Enabled" : " Double Tap: Disabled";
+            final String s = (temp==1) ? "@D@ENABLED" : "@D@DISABLED";
             Log.d(TAG, String.format("Received Interrupt: %s", s));
             intent.putExtra(EXTRA_DATA, s);
 
         } else if (UUID_ACC_VAL_CHARACTERISTIC.equals(characteristic.getUuid())) {
-            final int pitch = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 0);
-            final String sPitch  = Integer.toString(pitch);
+            final float pitch = ((float)characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT32, 0))/10;
+            final String sPitch  = Float.toString(pitch);
 
-            final int roll = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 2);
-            final String sRoll  = Integer.toString(roll);
+            final float roll = ((float)characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT32, 4))/10;
+            final String sRoll  = Float.toString(roll);
 
-            final int z = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_SINT8, 4);
-            final String sz  = Integer.toString(roll);
 
-            final String s = "Pitch:  " + sPitch + " Roll:  " + sRoll;
+            final String s = "@P@Pitch:  " + sPitch + ";@R@Roll:  " + sRoll;
             Log.d(TAG, String.format("Received acc: %s", s));
             intent.putExtra(EXTRA_DATA, s);
         } else if (UUID_TEMP_VAL_CHARACTERISTIC.equals(characteristic.getUuid())) {
-            final int temp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
-            final String sTemp = Integer.toString(temp);
+            final float temp = ((float)characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, 0))/10;
+            final String sTemp = Float.toString(temp);
 
-            final String s = " Temperature: " + sTemp + "° Celsius";
+            final String s = "@T@Temperature: " + sTemp + "° Celsius";
             Log.d(TAG, String.format("Received temperature: %s", s));
             intent.putExtra(EXTRA_DATA, s);
         } else {
@@ -339,7 +337,6 @@ public class BluetoothLeService extends Service {
         }
 
         characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-        characteristic.setValue(04, BluetoothGattCharacteristic.FORMAT_UINT8, 0);
         boolean ret = mBluetoothGatt.writeCharacteristic(characteristic);
         if (ret){
             Log.w(TAG, "YESSSS");
@@ -388,7 +385,7 @@ public class BluetoothLeService extends Service {
                 temp = (temp==0) ? 1 : 0;
                 count = 0;
             }
-            final String s = (temp==1) ? "Enabled" : "Disabled";
+            final String s = (temp==1) ? "@D@ENABLED" : "@D@DISABLED";
             Log.d(TAG, s);
             intent.putExtra(EXTRA_DATA, s);
             sendBroadcast(intent);
